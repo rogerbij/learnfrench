@@ -71,6 +71,12 @@
     gap:14px;
     flex-wrap:wrap;
   }
+  .header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
   .gear-btn{
     width:38px;height:38px;
     flex-shrink:0;
@@ -84,6 +90,18 @@
     cursor:pointer;
   }
   .gear-btn:hover{ border-color:var(--sky); color:var(--ink); }
+  .topics-btn{
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:8px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    font-weight:500;
+    background:var(--card);
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .topics-btn:hover{ border-color:var(--sky); color:var(--ink); }
 
   .settings-overlay{
     display:none;
@@ -144,6 +162,12 @@
     color:var(--ink);
   }
   .settings-row .cat-row{ margin-bottom:0; }
+  .settings-note{
+    font-size:12px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    line-height:1.5;
+  }
 
   .theme-row{
     display:flex;
@@ -224,15 +248,6 @@
     color:var(--ink);
     border-bottom:2px solid var(--sun);
   }
-  nav.views button.topics-btn{
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:6px 14px;
-    top:-3px;
-    font-size:12.5px;
-    background:var(--card);
-  }
-  nav.views button.topics-btn:hover{ border-color:var(--sky); color:var(--ink); }
 
   .topic-cloud{
     display:flex;
@@ -327,7 +342,8 @@
     margin-top:3px;
     visibility:hidden;
   }
-  .word-grid.show-translation .word-en{
+  .word-grid.show-translation .word-en,
+  .word-card.revealed .word-en{
     visibility:visible;
   }
   .mark-instruction{
@@ -347,12 +363,6 @@
     gap:6px;
     flex-shrink:0;
   }
-  .speak-icon{
-    width:16px;height:16px;
-    flex-shrink:0;
-    opacity:0.55;
-  }
-  .word-card:hover .speak-icon{ opacity:1; }
   .mark-btn{
     width:20px;height:20px;
     border-radius:50%;
@@ -884,21 +894,23 @@
       <h1 id="topicTitle">Météo | Weather</h1>
       <p class="sub">Level: A2</p>
     </div>
-    <button class="gear-btn" id="settingsBtn" title="Settings">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"></circle>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-      </svg>
-    </button>
+    <div class="header-actions">
+      <button class="topics-btn" id="topicsBtn">Topics ☁</button>
+      <button class="gear-btn" id="settingsBtn" title="Settings">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </div>
   </header>
   <div class="horizon"></div>
 
   <nav class="views">
-    <button class="topics-btn" id="topicsBtn">Topics ☁</button>
-    <button class="active" data-view="vocab">Vocabulary</button>
+    <button class="active" data-view="vocab">Vocab</button>
     <button data-view="phrases">Flashcards</button>
-    <button data-view="shadow">Listening</button>
-    <button data-view="list">Writing</button>
+    <button data-view="shadow">Listen</button>
+    <button data-view="list">Write</button>
     <button data-view="story">Story</button>
   </nav>
 
@@ -949,6 +961,11 @@
           <option value="3">3×</option>
         </select>
       </div>
+      <div class="settings-row">
+        <div class="settings-label">Saved progress</div>
+        <p class="settings-note">Your marks, answers, and settings are saved automatically in this browser.</p>
+        <button class="ctrl-btn" id="resetProgressBtn">Reset all saved progress</button>
+      </div>
     </div>
   </div>
 
@@ -969,8 +986,9 @@
       <button data-sub="marked">Marked for practice</button>
     </div>
     <div class="shuffle-row">
-      <button class="ctrl-btn" id="phraseShuffleBtn">Shuffle order</button>
-      <button class="ctrl-btn" id="reverseToggleBtn">Reverse translation</button>
+      <button class="ctrl-btn" id="phraseShuffleBtn">Shuffle</button>
+      <button class="ctrl-btn" id="reverseToggleBtn">Reverse</button>
+      <button class="ctrl-btn" id="cardStartBtn">Start</button>
     </div>
     <div class="stage">
       <div class="flashcard" id="flashcard">
@@ -979,7 +997,6 @@
         <div class="flash-en" id="flashEn"></div>
       </div>
       <div class="controls">
-        <button class="ctrl-btn" id="cardStartBtn">Start</button>
         <button class="ctrl-btn" id="prevBtn">← previous</button>
         <button class="say-btn" id="sayBtn" title="Listen to the phrase in French">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -999,7 +1016,9 @@
     <p class="shadow-instruction">Close your eyes and repeat the phrase after the voice. You can change the speed and number of repetitions in the settings.</p>
 
     <div class="shuffle-row">
-      <button class="ctrl-btn" id="shadowShuffleBtn">Shuffle order</button>
+      <button class="ctrl-btn" id="shadowShuffleBtn">Shuffle</button>
+      <button class="ctrl-btn" id="shadowStartBtn">Start</button>
+      <button class="ctrl-btn" id="shadowStopBtn">Stop</button>
     </div>
 
     <div class="shadow-stage">
@@ -1009,11 +1028,9 @@
     </div>
 
     <div class="controls">
-      <button class="ctrl-btn" id="shadowStartBtn">Start</button>
       <button class="ctrl-btn" id="shadowPrevBtn">←</button>
       <button class="say-btn say-btn-lg" id="shadowPlayBtn" title="Lecture"></button>
       <button class="ctrl-btn" id="shadowNextBtn">→</button>
-      <button class="ctrl-btn" id="shadowStopBtn">Stop</button>
     </div>
     <div class="progress" id="shadowProgress"></div>
   </section>
@@ -1513,6 +1530,7 @@ const topics = {
 Object.keys(topics).forEach(key => {
   topics[key].markedWords = new Set();
   topics[key].markedPhrases = new Set();
+  topics[key].revealedWords = new Set(); // words clicked to reveal their translation
   topics[key].phraseOrder = topics[key].phrases.map((_, i) => i);
   topics[key].listAnswers = new Array(topics[key].phrases.length).fill('');
   topics[key].storyAnswer = '';
@@ -1521,8 +1539,19 @@ Object.keys(topics).forEach(key => {
 });
 
 let currentTopic = 'weather';
-let vocab = topics[currentTopic].vocab;
-let phrases = topics[currentTopic].phrases;
+let vocab, phrases, markedWords, markedPhrases, revealedWords;
+
+// Re-points the working "pointer" variables at whichever topic is current.
+// Used on initial load, on topic switch, and after restoring saved state.
+function repointToCurrentTopic(){
+  vocab = topics[currentTopic].vocab;
+  phrases = topics[currentTopic].phrases;
+  markedWords = topics[currentTopic].markedWords;
+  markedPhrases = topics[currentTopic].markedPhrases;
+  revealedWords = topics[currentTopic].revealedWords;
+  phraseOrder = topics[currentTopic].phraseOrder;
+  listAnswers = topics[currentTopic].listAnswers;
+}
 
 /* ---------------- SHARED ORDER / SHUFFLE ---------------- */
 let phraseOrder = topics[currentTopic].phraseOrder; // identity order by default
@@ -1543,9 +1572,112 @@ function shuffleAllPhraseViews(){
   renderList();
 }
 
+/* ---------------- PERSISTENCE (localStorage) ---------------- */
+// Works because this page is now hosted independently (e.g. GitHub Pages) —
+// browser storage is unavailable inside Claude's own chat/artifact preview,
+// but behaves completely normally on a real, independently-hosted page.
+const STORAGE_KEY = 'keyFrenchApp:v1';
+
+function serializeState(){
+  const topicsState = {};
+  Object.keys(topics).forEach(key => {
+    const t = topics[key];
+    topicsState[key] = {
+      markedWords: Array.from(t.markedWords),
+      markedPhrases: Array.from(t.markedPhrases),
+      revealedWords: Array.from(t.revealedWords),
+      phraseOrder: t.phraseOrder,
+      listAnswers: t.listAnswers,
+      storyAnswer: t.storyAnswer,
+      storyFeedback: t.storyFeedback,
+      savedCorrections: t.savedCorrections
+    };
+  });
+  return {
+    version: 1,
+    currentTopic,
+    currentThemeKey,
+    selectedVoiceName: selectedVoice ? selectedVoice.name : null,
+    phraseRate,
+    direction,
+    storyDirection,
+    showTranslation,
+    pauseMs: pauseSelect ? parseInt(pauseSelect.value, 10) : undefined,
+    repeatCount: repeatSelect ? parseInt(repeatSelect.value, 10) : undefined,
+    colVisibility: Object.fromEntries(columns.map(c => [c.key, c.visible])),
+    storyColVisibility: Object.fromEntries(storyColumns.map(c => [c.key, c.visible])),
+    topics: topicsState
+  };
+}
+
+function performSaveNow(){
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(serializeState()));
+  } catch(e) {
+    // Storage full, blocked by browser settings, or unavailable — the app
+    // still works fully, it just won't remember anything between visits.
+  }
+}
+
+let saveTimer = null;
+function saveState(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(performSaveNow, 400);
+}
+
+function loadState(){
+  let raw;
+  try { raw = localStorage.getItem(STORAGE_KEY); } catch(e) { return; }
+  if(!raw) return;
+  let saved;
+  try { saved = JSON.parse(raw); } catch(e) { return; }
+  if(!saved || saved.version !== 1) return;
+
+  try {
+    Object.keys(saved.topics || {}).forEach(key => {
+      if(!topics[key]) return; // topic no longer exists in this version — skip gracefully
+      const t = saved.topics[key];
+      topics[key].markedWords = new Set(t.markedWords || []);
+      topics[key].markedPhrases = new Set(t.markedPhrases || []);
+      topics[key].revealedWords = new Set(t.revealedWords || []);
+      if(Array.isArray(t.phraseOrder) && t.phraseOrder.length === topics[key].phrases.length){
+        topics[key].phraseOrder = t.phraseOrder;
+      }
+      if(Array.isArray(t.listAnswers) && t.listAnswers.length === topics[key].phrases.length){
+        topics[key].listAnswers = t.listAnswers;
+      }
+      topics[key].storyAnswer = t.storyAnswer || '';
+      topics[key].storyFeedback = t.storyFeedback || null;
+      topics[key].savedCorrections = Array.isArray(t.savedCorrections) ? t.savedCorrections : [];
+    });
+
+    if(saved.currentTopic && topics[saved.currentTopic]) currentTopic = saved.currentTopic;
+    if(saved.currentThemeKey) currentThemeKey = saved.currentThemeKey;
+    if(typeof saved.phraseRate === 'number') phraseRate = saved.phraseRate;
+    if(saved.direction) direction = saved.direction;
+    if(saved.storyDirection) storyDirection = saved.storyDirection;
+    if(typeof saved.showTranslation === 'boolean') showTranslation = saved.showTranslation;
+    if(saved.pauseMs && pauseSelect) pauseSelect.value = String(saved.pauseMs);
+    if(saved.repeatCount && repeatSelect) repeatSelect.value = String(saved.repeatCount);
+    if(saved.colVisibility) columns.forEach(c => { if(c.key in saved.colVisibility) c.visible = saved.colVisibility[c.key]; });
+    if(saved.storyColVisibility) storyColumns.forEach(c => { if(c.key in saved.storyColVisibility) c.visible = saved.storyColVisibility[c.key]; });
+    if(saved.selectedVoiceName) pendingVoiceName = saved.selectedVoiceName;
+
+    repointToCurrentTopic();
+  } catch(e) {
+    console.warn('Could not fully restore saved progress; continuing with defaults.', e);
+  }
+}
+
+function resetSavedProgress(){
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  location.reload();
+}
+
 /* ---------------- TTS ---------------- */
 let selectedVoice = null;
 let phraseRate = 1.0; // controlled by the speed toggle in the Phrases tab
+let pendingVoiceName = null; // set by loadState(); applied once voices actually load
 
 const FEMALE_NAME_HINTS = ['amelie','amélie','audrey','celine','céline','chantal','julie','virginie','marie','lea','léa','charlotte','aurelie','aurélie','claire','francophone female','female'];
 const MALE_NAME_HINTS = ['thomas','nicolas','paul','guillaume','henri','mathieu','remy','rémy','male'];
@@ -1562,7 +1694,9 @@ const voiceSelect = document.getElementById('voiceSelect');
 function populateVoiceList(){
   const voices = speechSynthesis.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith('fr'));
   if(voices.length === 0) return;
-  const prevValue = voiceSelect.value;
+  const preferredValue = (pendingVoiceName && voices.some(v => v.name === pendingVoiceName))
+    ? pendingVoiceName
+    : voiceSelect.value;
   voiceSelect.innerHTML = '';
   voices.forEach(v => {
     const opt = document.createElement('option');
@@ -1570,11 +1704,12 @@ function populateVoiceList(){
     opt.textContent = v.name + guessGenderTag(v.name);
     voiceSelect.appendChild(opt);
   });
-  const stillExists = voices.some(v => v.name === prevValue);
+  const stillExists = voices.some(v => v.name === preferredValue);
   if(stillExists){
-    voiceSelect.value = prevValue;
+    voiceSelect.value = preferredValue;
   }
   selectedVoice = voices.find(v => v.name === voiceSelect.value) || voices[0];
+  pendingVoiceName = null;
 }
 
 voiceSelect.onchange = () => {
@@ -1610,7 +1745,7 @@ const transToggleBtn = document.getElementById('transToggleBtn');
 let currentCat = 'noms';
 let vocabSelectedIndex = 0;
 let showTranslation = false;
-let markedWords = topics[currentTopic].markedWords; // keys: "category::frWord"
+markedWords = topics[currentTopic].markedWords; // keys: "category::frWord"
 
 const vocabCatOrder = ['noms','adjectifs','verbes','prépositions'];
 const catLabels = {
@@ -1664,15 +1799,12 @@ function renderWords(){
     const card = document.createElement('div');
     card.className = 'word-card'
       + (i===vocabSelectedIndex ? ' selected' : '')
-      + (markedWords.has(key) ? ' marked' : '');
+      + (markedWords.has(key) ? ' marked' : '')
+      + (revealedWords.has(key) ? ' revealed' : '');
     card.innerHTML = `
       <div class="word-row">
         <div class="word-fr">${fr}</div>
         <div class="word-row-icons">
-          <svg class="speak-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="3 9 8 9 13 4 13 20 8 15 3 15 3 9"></polygon>
-            <path d="M16 8.5c1 1 1 6 0 7"></path>
-          </svg>
           <button class="mark-btn${markedWords.has(key) ? ' active' : ''}" title="Mark for practice">!</button>
         </div>
       </div>
@@ -1686,6 +1818,7 @@ function renderWords(){
     };
     card.onclick = () => {
       vocabSelectedIndex = i;
+      revealedWords.add(key);
       renderWords();
       speakFr(fr.replace(/^l['’]/i,''));
     };
@@ -1726,7 +1859,9 @@ document.addEventListener('keydown', (e) => {
   else if(e.key === 'ArrowUp'){ e.preventDefault(); vocabSelectedIndex = Math.max(0, vocabSelectedIndex-cols); renderWords(); }
   else if(e.key === ' ' || e.code === 'Space'){
     e.preventDefault();
-    const [fr] = entries[vocabSelectedIndex];
+    const [fr,,cat] = entries[vocabSelectedIndex];
+    revealedWords.add(wordKey(cat, fr));
+    renderWords();
     speakFr(fr.replace(/^l['’]/i,''));
   }
   else if(e.key === 'x' || e.key === 'X'){
@@ -1743,7 +1878,7 @@ document.addEventListener('keydown', (e) => {
 let idx = 0;
 let direction = 'en-fr'; // or 'fr-en' — toggled via the Reverse translation button
 let phraseSubTab = 'all'; // or 'marked'
-let markedPhrases = topics[currentTopic].markedPhrases; // keys: french text of the phrase
+markedPhrases = topics[currentTopic].markedPhrases; // keys: french text of the phrase
 const flashcard = document.getElementById('flashcard');
 const flashFr = document.getElementById('flashFr');
 const flashEn = document.getElementById('flashEn');
@@ -1827,42 +1962,51 @@ function renderPhrase(){
 
 function updateCardButtons(total){
   progress.textContent = (idx+1) + ' / ' + total;
-  const flipped = flashcard.classList.contains('flipped');
-  document.getElementById('prevBtn').disabled = (idx===0 && !flipped);
-  document.getElementById('nextBtn').disabled = (idx===total-1 && flipped);
+  document.getElementById('prevBtn').disabled = (idx===0);
+  document.getElementById('nextBtn').disabled = (idx===total-1);
 }
 
 function cardStepForward(){
   const total = currentPhraseList().length;
-  if(total === 0) return;
-  if(!flashcard.classList.contains('flipped')){
-    flashcard.classList.add('flipped');
-  } else if(idx < total-1){
-    idx++;
-    renderPhrase();
-    return;
-  }
-  updateCardButtons(total);
+  if(total === 0 || idx >= total-1) return;
+  idx++;
+  renderPhrase();
 }
 
 function cardStepBack(){
   const total = currentPhraseList().length;
-  if(total === 0) return;
-  if(flashcard.classList.contains('flipped')){
-    flashcard.classList.remove('flipped');
-  } else if(idx > 0){
-    idx--;
-    renderPhrase();
-    return;
-  }
-  updateCardButtons(total);
+  if(total === 0 || idx <= 0) return;
+  idx--;
+  renderPhrase();
 }
 
 flashcard.onclick = () => {
+  if(suppressCardClick) return;
   if(currentPhraseList().length === 0) return;
   flashcard.classList.toggle('flipped');
   updateCardButtons(currentPhraseList().length);
 };
+
+// Swipe left/right to go to the next/previous card on touch devices.
+let touchStartX = 0, touchStartY = 0, suppressCardClick = false;
+flashcard.addEventListener('touchstart', (e) => {
+  const t = e.changedTouches[0];
+  touchStartX = t.clientX;
+  touchStartY = t.clientY;
+}, { passive: true });
+flashcard.addEventListener('touchend', (e) => {
+  const t = e.changedTouches[0];
+  const dx = t.clientX - touchStartX;
+  const dy = t.clientY - touchStartY;
+  const SWIPE_THRESHOLD = 45;
+  if(Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)){
+    e.preventDefault();
+    suppressCardClick = true;
+    setTimeout(() => { suppressCardClick = false; }, 400);
+    if(dx < 0) cardStepForward(); else cardStepBack();
+  }
+});
+
 document.getElementById('sayBtn').onclick = (e) => {
   e.stopPropagation();
   const list = currentPhraseList();
@@ -2532,6 +2676,11 @@ document.querySelectorAll('nav.views button[data-view]').forEach(btn => {
 const settingsOverlay = document.getElementById('settingsOverlay');
 document.getElementById('settingsBtn').onclick = () => settingsOverlay.classList.add('open');
 document.getElementById('settingsClose').onclick = () => settingsOverlay.classList.remove('open');
+document.getElementById('resetProgressBtn').onclick = () => {
+  if(confirm('This will erase all marks, saved answers, and settings in this browser. Continue?')){
+    resetSavedProgress();
+  }
+};
 settingsOverlay.addEventListener('click', (e) => {
   if(e.target === settingsOverlay) settingsOverlay.classList.remove('open');
 });
@@ -2588,12 +2737,7 @@ function renderTopicCloud(){
 function switchTopic(key){
   if(key === currentTopic) return;
   currentTopic = key;
-  vocab = topics[key].vocab;
-  phrases = topics[key].phrases;
-  markedWords = topics[key].markedWords;
-  markedPhrases = topics[key].markedPhrases;
-  phraseOrder = topics[key].phraseOrder;
-  listAnswers = topics[key].listAnswers;
+  repointToCurrentTopic();
 
   // reset per-view selection state
   currentCat = 'noms';
@@ -2621,6 +2765,12 @@ topicsOverlay.addEventListener('click', (e) => {
 });
 
 /* ---------------- INIT ---------------- */
+loadState(); // restore any saved progress/settings before the first render
+repointToCurrentTopic(); // guarantees vocab/phrases/etc. are set even on a first-ever visit (no saved data yet)
+
+topicTitleEl.textContent = topics[currentTopic].titleFr + ' | ' + topics[currentTopic].label;
+applyTheme();
+
 renderCats();
 renderWords();
 renderReverseToggle();
@@ -2628,11 +2778,24 @@ renderSpeedToggle();
 renderThemeRow();
 renderPhrase();
 renderColToggles();
+applyColumnVisibility();
 renderList();
 renderStoryColToggles();
 applyStoryColVisibility();
 renderStory();
 renderTopicCloud();
+
+if(pendingVoiceName) populateVoiceList(); // in case voices were already available synchronously
+
+// Autosave: any click, typed input, or settings change schedules a debounced save.
+// This one pair of listeners covers every mutation in the app — marking, shuffling,
+// switching topics, typing answers, changing settings — without needing a save call
+// at every individual call site.
+document.addEventListener('click', saveState);
+document.addEventListener('input', saveState);
+document.addEventListener('change', saveState);
+window.addEventListener('beforeunload', () => { clearTimeout(saveTimer); performSaveNow(); });
+window.addEventListener('pagehide', () => { clearTimeout(saveTimer); performSaveNow(); }); // more reliable than beforeunload on iOS Safari
 </script>
 </body>
 </html>
